@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Fakultet, Kafedra, Course, Group, Student, Teacher, Status
+from .models import *
 
 
 @admin.register(Fakultet)
@@ -25,17 +25,22 @@ class GroupAdmin(admin.ModelAdmin):
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'group', 'status', 'phone', 'par_phone')
+    list_display = ('full_name', 'group', 'phone', 'par_phone')
     search_fields = ('full_name', 'group__name')
-    list_filter = ('group', 'status')
+    list_filter = ('group',)
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'kafedra')
-    search_fields = ('full_name', 'kafedra')
+    search_fields = ('full_name', 'kafedra', 'login')
     list_filter = ('fakultet', 'kafedra')
 
 @admin.register(Status)
 class StatusAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
+
+@admin.register(Gelmedi)
+class GelmediAdmin(admin.ModelAdmin):
+    list_display = ('student', 'status', 'date')
+    search_fields = ('student', 'date', 'status')
